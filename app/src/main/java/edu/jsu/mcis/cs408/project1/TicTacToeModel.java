@@ -35,13 +35,14 @@ public class TicTacToeModel {
 
         this.size = size;
         this.xTurn = true;
+        grid = new Mark[size][size];
 
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                grid[i][j] = Mark.EMPTY;
+            }
+        }
         /* Create grid (width x width) as a 2D Mark array */
-
-        //
-        // INSERT YOUR CODE HERE
-        //
-
     }
 
     public boolean setMark(TicTacToeSquare square) {
@@ -61,28 +62,60 @@ public class TicTacToeModel {
         int row = square.getRow();
         int col = square.getCol();
 
+        if(isValidSquare(row, col) && !isSquareMarked(row, col)){
+
+            if(isXTurn()){
+                grid[row][col] = Mark.X;
+                System.out.println("The property change has been fired.");
+                firePropertyChange("SetSquareToX", null , Integer.toString(row)+Integer.toString(col));
+            }
+            else{
+                grid[row][col] = Mark.O;
+                System.out.println("The property change has been fired.");
+                firePropertyChange("SetSquareToO", null , new TicTacToeSquare(row,col));
+            }
+
+            xTurn = !xTurn;
+            return true;
+
+        }
+
+        return false;
         //
         // INSERT YOUR CODE HERE
         //
 
-        return false;
+
 
     }
 
     private boolean isValidSquare(int row, int col) {
 
         // This method should return TRUE if the specified location is within bounds of the grid
-
-        return false; // this is a stub; delete it later!
+        System.out.println("The size is " + Integer.toString(size));
+        System.out.println("The row is " + Integer.toString(row));
+        System.out.println("The col is " + Integer.toString(col));
+        if(row <= size && col <= size){
+            return true;
+        }
+        else{
+            System.out.println("THE SQUARE IS NOT VALID");
+            return false;
+        }
+        // Should be currently completed
 
     }
 
     private boolean isSquareMarked(int row, int col) {
 
-        // This method should return TRUE if the square at the specified location is already marked
-
-        return false; // this is a stub; delete it later!
-
+        if (grid[row][col] == Mark.EMPTY || grid[row][col] == null){
+            System.out.println("THE SPOT ISNT MARKED");
+            return false;
+        }
+        else{
+            System.out.println("THE SPOT IS " + grid[row][col]);
+            return true;
+        }
     }
 
     public Mark getMark(int row, int col) {
