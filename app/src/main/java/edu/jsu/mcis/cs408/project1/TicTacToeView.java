@@ -128,7 +128,7 @@ public class TicTacToeView extends AppCompatActivity {
 
         String name = getViewName(v);
 
-        TicTacToeSquare square = new TicTacToeSquare(Integer.parseInt(String.valueOf(name.charAt(6))),Integer.parseInt(String.valueOf(name.charAt(6))));
+        TicTacToeSquare square = new TicTacToeSquare(Integer.parseInt(String.valueOf(name.charAt(6))),Integer.parseInt(String.valueOf(name.charAt(7))));
        // Toast.makeText(getBaseContext(), name, Toast.LENGTH_SHORT).show(); // disable this later
         controller.processInput(square);
     }

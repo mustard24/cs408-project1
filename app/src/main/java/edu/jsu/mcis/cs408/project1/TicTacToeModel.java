@@ -168,7 +168,18 @@ public class TicTacToeModel {
                 return true;
             }
         }
-
+        for (int i = 0; i < size; i++){
+            winFlag = true;
+            for(int j = 0; j < size; j++){
+                if(grid[j][i] != mark){
+                    winFlag = false;
+                }
+            }
+            if(winFlag){
+                return true;
+            }
+        }
+        winFlag = true;
         for( int i= 0; i < size; i++) {
             if (grid[i][i] != mark) {
                 winFlag = false;
