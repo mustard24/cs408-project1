@@ -67,7 +67,7 @@ public class TicTacToeModel {
             if(isXTurn()){
                 grid[row][col] = Mark.X;
                 System.out.println("The property change has been fired.");
-                firePropertyChange("SetSquareToX", null , Integer.toString(row)+Integer.toString(col));
+                firePropertyChange(controller.SET_SQUARE_X, null , new TicTacToeSquare(row,col));
             }
             else{
                 grid[row][col] = Mark.O;
@@ -92,10 +92,8 @@ public class TicTacToeModel {
     private boolean isValidSquare(int row, int col) {
 
         // This method should return TRUE if the specified location is within bounds of the grid
-        System.out.println("The size is " + Integer.toString(size));
-        System.out.println("The row is " + Integer.toString(row));
-        System.out.println("The col is " + Integer.toString(col));
-        if(row <= size && col <= size){
+
+        if(row < size && col < size){
             return true;
         }
         else{
@@ -108,7 +106,7 @@ public class TicTacToeModel {
 
     private boolean isSquareMarked(int row, int col) {
 
-        if (grid[row][col] == Mark.EMPTY || grid[row][col] == null){
+        if (grid[row][col] == Mark.EMPTY ){
             System.out.println("THE SPOT ISNT MARKED");
             return false;
         }
@@ -134,7 +132,19 @@ public class TicTacToeModel {
         // is a TIE.  If neither condition applies, return a default value of NONE.
         //
 
-        return Result.NONE;
+        if(isMarkWin(Mark.X)){
+            return Result.X;
+        }
+        else if (isMarkWin(Mark.O)){
+            return Result.O;
+        }
+        else if (isTie()){
+            return Result.TIE;
+        }
+        else{
+            return Result.NONE;
+        }
+
 
     }
 
@@ -145,8 +155,42 @@ public class TicTacToeModel {
         // winner.  (Hint: this method must check for complete rows, columns, and diagonals, using
         // an algorithm which will work for all possible grid sizes!)
         //
+        Boolean winFlag = true;
 
-        return false; // this is a stub; delete it later!
+        for (int i = 0; i < size; i++){
+            winFlag = true;
+            for(int j = 0; j < size; j++){
+                if(grid[i][j] != mark){
+                    winFlag = false;
+                }
+            }
+            if(winFlag){
+                return true;
+            }
+        }
+
+        for( int i= 0; i < size; i++) {
+            if (grid[i][i] != mark) {
+                winFlag = false;
+            }
+
+
+        }
+        if(winFlag){
+            return true;
+        }
+
+        winFlag = true;
+        for(int i = 0; i < size; i++){
+            if(grid[size-i-1][i] != mark){
+                winFlag = false;
+            }
+        }
+        if(winFlag){
+            return true;
+        }
+
+        return false;
 
     }
 
@@ -156,7 +200,16 @@ public class TicTacToeModel {
         // This method should check the squares of the grid to see if the game is a tie.
         //
 
-        return false; // this is a stub; delete it later!
+
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                if(grid[i][j] == Mark.EMPTY){
+                    return false;
+                }
+            }
+        }
+        return true;
+        // this is a stub; delete it later!
 
     }
 

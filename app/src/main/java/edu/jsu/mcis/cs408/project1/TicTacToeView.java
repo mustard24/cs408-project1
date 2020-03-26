@@ -45,11 +45,15 @@ public class TicTacToeView extends AppCompatActivity {
 
         setResult( getResources().getString(R.string.welcome) );
 
-        for(int i = 0;  i < size; i++){
-
+        for(int i=0;  i < size; ++i){
+            for (int j=0; j < size; ++j){
+                TicTacToeSquare square = new TicTacToeSquare(i,j);
+                int id = getSquareId(square);
+                TextView squareText = (TextView)findViewById(id);
+                squareText.setText("");
+            }
         }
-        // INSERT YOUR CODE HERE
-        //
+
 
     }
 
@@ -71,9 +75,8 @@ public class TicTacToeView extends AppCompatActivity {
 
         if ( (propertyName.equals(TicTacToeController.SET_SQUARE_X)) ||
              (propertyName.equals(TicTacToeController.SET_SQUARE_O)) ) {
-            System.out.println("WE WORKING IT");
             if (propertyValue instanceof TicTacToeSquare) {
-                System.out.println("WE WORKING IT");
+
                 TicTacToeSquare propertySquare = (TicTacToeSquare)propertyValue;
                 controller.getMarkAsString(propertySquare);
                 TextView button = (TextView) findViewById(getSquareId(propertySquare));
@@ -124,10 +127,9 @@ public class TicTacToeView extends AppCompatActivity {
         //
 
         String name = getViewName(v);
-        System.out.println("Character row "  + name.charAt(6));
 
         TicTacToeSquare square = new TicTacToeSquare(Integer.parseInt(String.valueOf(name.charAt(6))),Integer.parseInt(String.valueOf(name.charAt(6))));
-        Toast.makeText(getBaseContext(), name, Toast.LENGTH_SHORT).show(); // disable this later
+       // Toast.makeText(getBaseContext(), name, Toast.LENGTH_SHORT).show(); // disable this later
         controller.processInput(square);
     }
 
